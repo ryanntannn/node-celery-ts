@@ -98,18 +98,22 @@ export const createBackend = (id: string, rawUri: string): ResultBackend => {
 
         switch (scheme) {
         case Scheme.Redis:
+				case Scheme.RedisSecure:
             return new Redis.RedisBackend(new Redis.RedisTcpOptions(
                 Redis.parseTcpUri(rawUri)
             ));
         case Scheme.RedisSocket:
+				case Scheme.RedisSocketSecure:
             return new Redis.RedisBackend(new Redis.RedisSocketOptions(
                 Redis.parseSocketUri(rawUri)
             ));
         case Scheme.RedisSentinel:
+				case Scheme.RedisSentinelSecure:
             return new Redis.RedisBackend(new Redis.RedisSentinelOptions(
                 Redis.parseSentinelUri(rawUri)
             ));
         case Scheme.Rpc:
+				case Scheme.RpcSecure:
             return new Amqp.RpcBackend(id, Amqp.parseAmqpUri(rawUri));
         }
     } catch (error) {
@@ -134,18 +138,22 @@ export const createBroker = (rawUri: string): MessageBroker => {
 
         switch (scheme) {
         case Scheme.Redis:
+				case Scheme.RedisSecure:
             return new Redis.RedisBroker(new Redis.RedisTcpOptions(
                 Redis.parseTcpUri(rawUri)
             ));
         case Scheme.RedisSocket:
+				case Scheme.RedisSocketSecure:
             return new Redis.RedisBroker(new Redis.RedisSocketOptions(
                 Redis.parseSocketUri(rawUri)
             ));
         case Scheme.RedisSentinel:
+				case Scheme.RedisSentinelSecure:
             return new Redis.RedisBroker(new Redis.RedisSentinelOptions(
                 Redis.parseSentinelUri(rawUri)
             ));
         case Scheme.Amqp:
+				case Scheme.AmqpSecure:
             return new Amqp.AmqpBroker(Amqp.parseAmqpUri(rawUri));
         }
     } catch (error) {
